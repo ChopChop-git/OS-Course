@@ -1,2 +1,15 @@
 #!/bin/bash
-grep -h -s -o -E "[[:alnum:]]+@[[:alnum:]]+\.[[:alpha:]]+" /etc/* | sed -z 's/\n/, /g;s/, $/\n/' > emails.lst
+from=/etc/*
+to=emails.lst
+
+grep -h -s -o -E "[[:alnum:]]+@[[:alpha:]]+\.[[:alpha:]]+" $from > $to
+
+line=""
+read line < $to
+emails="$line"
+while read line
+do 
+   emails="$emails, $line"
+done < $to
+
+echo $emails > $to

@@ -1,7 +1,6 @@
 #!/bin/bash
 path=/var/log/Xorg.0.log
 
-grep -E "] \(WW\)" $path > full.log 
-grep -E "] \(II\)" $path >> full.log 
-sed -i 's/(II)/Informational:/g;s/(WW)/Warning:/g' full.log    
+grep -E "] \(WW\)|] \(II\)" $path | sort -k2,2 -r | sed -i 's/(II)/Informational:/g;s/(WW)/Warning:/g' full.log    
 cat full.log
+	

@@ -1,2 +1,2 @@
 #!/bin/bash
-man bash | grep -o -E '[[:alpha:]]{4,}' | tr '[:upper:]' '[:lower:]'| sort | uniq -c | sort -n -k1,1 -r | head -n 3 | awk '{print $2}'
+man bash | grep -o -E '[[:alpha:]]{4,}'| sort | uniq -c | sort -n -k1,1 -r | head -n 3
