@@ -1,3 +1,4 @@
 #!/bin/bash
+log=/var/log/pacman.log
 
-grep -E '^[^:]*:INFO:?.*' /var/log/anaconda/syslog > info.log
+grep -E '^[^ ]+ \[ALPM\] .*' $log > info.log
