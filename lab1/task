@@ -1,0 +1,4 @@
+#!/bin/bash
+
+
+grep -o -E '#!\/bin\/bash|^[^#]*' $1

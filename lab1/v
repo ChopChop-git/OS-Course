@@ -1,4 +1,4 @@
 #!/bin/bash
-log=/var/log/pacman.log
-
-grep -E '^[^ ]+ \[ALPM\] .*' $log > info.log
+log=/var/log/Xorg.0.log
+#log=test
+awk '$3 == "(II)"' $log > info.log
