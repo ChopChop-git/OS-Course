@@ -1,0 +1,2 @@
+#!/bin/bash
+grep -h -s -o -E "[[:alnum:]]+@[[:alnum:]]+\.[[:alpha:]]+" /etc/* | sed -z 's/\n/, /g;s/, $/\n/' > emails.lst
