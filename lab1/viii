@@ -1,0 +1,4 @@
+#!/bin/bash
+from=/etc/passwd
+
+cut -d":" -f1,3 $from | sort -n -t: -k2,2

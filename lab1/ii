@@ -1,0 +1,10 @@
+#!/bin/bash
+input=""
+tmp=""
+read tmp
+while [[ $tmp != "q" ]]
+do
+    input="$input $tmp"
+    read tmp
+done
+echo $input
