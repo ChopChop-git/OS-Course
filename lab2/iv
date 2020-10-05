@@ -1,0 +1,14 @@
+#!/bin/bash
+res="iv.txt"
+echo "" > $res
+for file in /proc/[0-9]*; do
+  ppid=$(sed '7q;d' "$file/status" | cut -f2)
+  sum_exec_runtime=$(sed '5q;d' "$file/sched" | awk '{print $3}')
+  nr_switches=$(sed '7q;d' "$file/sched" | awk '{print $3}')
+  art=$(bc -l <<< "scale = 5 ; $sum_exec_runtime/$nr_switches" |\
+                                      awk '{printf "%f",$0}')
+  pid=$(basename $file)
+  echo "ProcessID=$pid : Parent_ProcessID=$ppid : Average_Running_Time=$art"
+done |
+  sort -t':' -k2 -V  > $res
+cat $res

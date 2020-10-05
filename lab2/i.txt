@@ -1,0 +1,7 @@
+6
+2921:/bin/bash
+7758:/bin/bash
+18704:./top
+18732:/bin/bash
+18733:ps
+18734:awk

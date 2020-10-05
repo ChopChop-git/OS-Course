@@ -1,0 +1,16 @@
+#!/bin/bash
+
+max_memory=0
+max_pid=-1
+for file in /proc/[0-9]*; do
+  pid=$(basename $file)
+  memory=$(awk '{if ($1 == "VmRSS:") {print $2}}' /proc/$pid/status)
+  if [ -z "$memory" ]; then memory=0; fi
+  if [ "$memory" -gt "$max_memory" ]; then
+    max_memory=$memory
+    max_pid=$pid
+  fi
+done
+echo "Maximum using memory process's pid from proc is $max_pid"
+echo "Maximum using memory process's pid from top is $(ps aux --sort=-%mem |\
+ head -n2 | tail -n1 | awk '{print $2}')"

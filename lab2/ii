@@ -1,0 +1,4 @@
+#!/bin/bash
+file="ii.txt"
+pgrep -f /sbin/ > $file
+cat $file
