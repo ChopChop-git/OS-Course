@@ -1,2 +1,3 @@
 #!/bin/bash
-ps -ef --sort=start_time | tail -n1 | awk '{print $2}'
+processes=$(ps -ef --sort=start_time)
+tail -n3 <<< "$processes"| head -n1
