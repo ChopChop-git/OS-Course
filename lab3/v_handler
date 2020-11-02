@@ -1,0 +1,41 @@
+#!/bin/bash
+
+var=1
+mode="+"
+(tail -f pipe) |
+while true; do
+  read LINE;
+  case $LINE in
+    "QUIT")
+          echo "Stopped by QUIT command"
+          killall "tail"
+          exit 0
+          ;;
+    "+")
+          mode="+"
+          echo "Activated + mode"
+          ;;
+    "*")
+          mode="*"
+          echo "Activated * mode"
+          ;;
+    *)
+        if [[ "$LINE" =~ [0-9]+ ]]
+        then
+          case "$mode" in
+            "+")
+                  var=$(($var + $LINE))
+                  echo "$var"
+                  ;;
+            "*")
+                  var=$(($var * $LINE))
+                  echo "$var"
+                  ;;
+          esac
+        else
+          echo "Incorrect input"
+          exit 1
+        fi
+        ;;
+  esac
+done

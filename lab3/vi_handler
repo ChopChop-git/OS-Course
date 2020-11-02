@@ -1,0 +1,38 @@
+#!/bin/bash
+
+echo "$$" > ".pid"
+
+var=1
+mode="+"
+usr1() {
+  mode="+"
+  echo "Activated + mode"
+}
+usr2() {
+  mode="*"
+  echo "Activated * mode"
+}
+sigterm() {
+  mode="TERM"
+}
+trap 'usr1' USR1
+trap 'usr2' USR2
+trap 'sigterm' SIGTERM
+
+while true; do
+  case $mode in
+    "+")
+          let var=$var+2
+          echo "$var"
+          ;;
+    "*")
+          let var=$var*2
+          echo "$var"
+          ;;
+    "TERM")
+          echo "Stopped by TERM command"
+          exit 0
+          ;;
+  esac
+  sleep 1
+done

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+while true; do
+  read LINE
+  echo "$LINE" > pipe
+  if [[ ! "$LINE" =~ [0-9]+ && "$LINE" != "+" && "$LINE" != "*" ]]; then
+    echo "Incorrect input"
+    exit 1
+  fi
+  if [[ "$LINE" == "QUIT" ]]; then
+    echo "Stopped by QUIT command"
+    exit 0
+  fi
+done
