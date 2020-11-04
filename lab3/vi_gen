@@ -1,4 +1,4 @@
-#!/bin/bash
+    #!/bin/bash
 
 while true; do
   read LINE
@@ -12,7 +12,7 @@ while true; do
           kill -USR1 $(cat .pid)
           ;;
     "*")
-        kill -USR2 $(cat .pid)
+          kill -USR2 $(cat .pid)
           ;;
   esac
 done
