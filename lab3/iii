@@ -1,0 +1,5 @@
+#!/bin/bash
+
+script="$HOME/OS_Course/lab3/i"
+
+crontab - <<< "5 * * * 1 $script"

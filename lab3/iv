@@ -1,0 +1,23 @@
+#!/bin/bash
+
+loop() {
+  x=2
+  while true; do
+    let x=$x*2
+  done;
+}
+(loop) & pid1="$!"
+(loop) & pid2="$!"
+(loop) & pid3="$!"
+
+echo "$pid1"
+echo "$pid2"
+echo "$pid3"
+
+cpulimit -z -p "$pid1" -l 10 &
+
+kill "$pid3"
+
+sleep 30
+kill "$pid1"
+kill "$pid2"

@@ -1,0 +1,10 @@
+#!/bin/bash
+file="i.txt"
+user="chopchop"
+tmpfile="tmp"
+
+ps u a | awk '$1 == "'"$user"'"' > $tmpfile
+wc -l < $tmpfile > $file
+awk '{print $2 ":" $11}' $tmpfile >> $file
+rm $tmpfile
+cat $file

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+date="$(date +"%F_%R")"
+
+
+report="$HOME/report"
+test="$HOME/test"
+test_file="$test/$date"
+address="www.net_nikogo.ru"
+
+mkdir -p "$test" && echo "catalog was created successfully" >> "$report" && touch "$test_file"
+
+
+ping -c 5 "$address" || echo "[$date] can't establish connection to address: $address" >> "$report"

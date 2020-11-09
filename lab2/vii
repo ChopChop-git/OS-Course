@@ -1,0 +1,38 @@
+#!/bin/bash
+
+function find_max() {
+  line1=$(sed '1q;d' <<< "$4")
+  line2=$(sed '2q;d' <<< "$4")
+  line3=$(sed '3q;d' <<< "$4")
+
+  first=$(cut -d':' -f2 <<< "$line1")
+  second=$(cut -d':' -f2 <<< "$line2")
+  third=$(cut -d':' -f2 <<< "$line3")
+  if [[ "$2" -ge "$first" ]]; then
+    line3="$line2"
+    line2="$line1"
+    line1="$1:$2:$3"
+  elif [[ "$2" -ge "$second" ]]; then
+    line3="$line2"
+    line2="$1:$2:$3"
+  elif [[ "$2" -ge "$third" ]]; then
+    line3="$1:$2:$3"
+  fi
+  nl=$'\n'
+  echo "$line1${nl}$line2${nl}$line3"
+}
+
+sleep 20
+
+nl=$'\n'
+res="-1:0:null${nl}-1:0:null${nl}-1:0:null"
+
+for file in /proc/[0-9]*; do
+  pid=$(basename $file)
+  read_bytes=$(awk '{if ($1 == "read_bytes:") {print $2}}' /proc/$pid/io)
+  if [ -z "$read_bytes" ]; then read_bytes=0; fi
+  cmdline=$(cat "/proc/$pid/cmdline")
+  if [ -z "$cmdline" ]; then cmdline="no-cmdline"; fi
+  res=$(find_max "$pid" "$read_bytes" "$cmdline" "$res")
+done
+echo "$res"
