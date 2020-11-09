@@ -1,0 +1,24 @@
+#!/bin/bash
+id="./.id"
+if [ ! -f "$id" ]; then
+  echo 1 > "$id"
+fi
+
+if [ "$1" == "" ]; then
+  echo "Please specify file in current directory to delete"
+  exit 1
+fi
+if [ ! -f "$1" ]; then
+  echo "Specified name isn't a file or does not exists"
+  exit 1
+fi
+
+trash="$HOME/.trash"
+log="$HOME/.trash.log"
+if [ ! -d "$trash" ]; then
+  mkdir "$trash"
+fi
+cur_id=$(cat "$id")
+echo $(( "$cur_id" + 1 )) > "$id"
+
+ln "$1" "$trash/$cur_id" && rm "$1" && echo "$(pwd "$1")/$1:$cur_id" >> "$log"

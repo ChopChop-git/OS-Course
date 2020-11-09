@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ "$1" == "" ]; then
+  echo "Please specify file name to restore"
+  exit 1
+fi
+trash="$HOME/.trash"
+log="$HOME/.trash.log"
+echo "$line"
+for line in $(grep -s "$1" "$log")
+do
+    path=$(awk -F":" '{print $1}' <<< "$line")
+    id=$(awk -F":" '{print $2}' <<< "$line")
+    trashed_file="$trash/$id"
+    if [ -f "$trash/$id" ]; then
+      echo "Do you want to untrash file $path? (y/N)"
+      read ans
+      if [ "$ans" == "y" ]; then
+        if [ -d $(dirname "$path") ]; then
+          if [ -f "$path" ]; then
+            echo "File with same name already exists. Please change it's name."
+            exit 1
+          fi
+          ln "$trashed_file" "$path"
+        else
+          echo "Directory $(dirname "$path") doesn't exist. Restoring in home folder."
+          ln "$trashed_file" "$HOME/$1"
+        fi
+        rm "$trashed_file"
+      fi
+    fi
+done
