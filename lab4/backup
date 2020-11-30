@@ -6,7 +6,7 @@ last_backup_name=""
 last_backup_time=0
 if [ "$backups" ]; then
   last_backup_name=$(tail -1 <<< "$backups")
-  last_backup_date=$(grep -o -E "[0-9]{4}-[0-9]{2}-[0-9]{2}" <<< "$backups")
+  last_backup_date=$(grep -o -E "[0-9]{4}-[0-9]{2}-[0-9]{2}" <<< "$backups" | tail -n1)
   last_backup_time=$(date -d "$last_backup_date" +%s)
 fi
 
