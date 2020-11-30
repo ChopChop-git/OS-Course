@@ -324,6 +324,15 @@ UID:1000 pgtables:7280kB oom_score_adj:0
 now anon-rss:0kB, file-rss:0kB, shmem-rss:0kB
 ```
 **Last log line**: 47000000
+\
+FreeMem
+![](./auxilary/FreeMem.png)
+\
+UsedMem
+![](./auxilary/UsedMem.png)
+\
+Buff
+![](./auxilary/Buff.png)
 #### 2.Second stage
 mem.bash
 ```
@@ -688,6 +697,14 @@ dmesg
 **report.log**: 23000000
 \
 **report2.log**: 24000000
-
+\
+FreeMem
+![](./auxilary/FreeMem2.png)
+\
+UsedMem
+![](./auxilary/UsedMem2.png)
+\
+Buff
+![](./auxilary/Buff2.png)
 ### Second test
 **N** = 47000000 / 30 = 1566666
